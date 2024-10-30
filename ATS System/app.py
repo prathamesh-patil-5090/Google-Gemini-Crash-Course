@@ -12,14 +12,15 @@ import google.generativeai as genai
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 def get_gemini_response(input,pdf_cotent,prompt):
-    model=genai.GenerativeModel('gemini-pro-vision')
+    model=genai.GenerativeModel('gemini-1.5-flash') # Updated the model name
     response=model.generate_content([input,pdf_content[0],prompt])
     return response.text
 
 def input_pdf_setup(uploaded_file):
     if uploaded_file is not None:
         ## Convert the PDF to image
-        images=pdf2image.convert_from_bytes(uploaded_file.read())
+        images = pdf2image.convert_from_bytes(uploaded_file.read())
+        #images = pdf2image.convert_from_bytes(uploaded_file.read(), poppler_path=r'C:/Program Files/poppler-24.08.0/Library/bin') ... # May need to give path to poppler
 
         first_page=images[0]
 
@@ -89,7 +90,6 @@ elif submit3:
 
 
    
-
 
 
 
